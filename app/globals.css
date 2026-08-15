@@ -1,26 +1,149 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8f8fb;
+  --foreground: #14123f;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@theme {
+  --color-primary: #1b1660;
+  --color-primary-dark: #100d3f;
+  --color-primary-light: #e9e8f5;
+  --color-gold: #f2b90f;
+  --color-gold-light: #fbe9b8;
+  --color-red: #d81f2a;
+  --color-cream: #f8f8fb;
+  --font-heading: var(--font-playfair);
+  --font-arabic: var(--font-amiri);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+.bismillah {
+  font-family: var(--font-arabic);
+}
+
+.pattern-bg {
+  background-color: var(--color-cream);
+  background-image:
+    linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 7%, transparent) 25%, transparent 25%),
+    linear-gradient(225deg, color-mix(in srgb, var(--color-primary) 7%, transparent) 25%, transparent 25%),
+    linear-gradient(315deg, color-mix(in srgb, var(--color-primary) 7%, transparent) 25%, transparent 25%),
+    linear-gradient(45deg, color-mix(in srgb, var(--color-primary) 7%, transparent) 25%, transparent 25%);
+  background-position: 24px 0, 24px 0, 0 0, 0 0;
+  background-size: 24px 24px;
+}
+
+.pattern-bg-dark {
+  background-color: var(--color-primary);
+  background-image:
+    linear-gradient(135deg, color-mix(in srgb, white 8%, transparent) 25%, transparent 25%),
+    linear-gradient(225deg, color-mix(in srgb, white 8%, transparent) 25%, transparent 25%),
+    linear-gradient(315deg, color-mix(in srgb, white 8%, transparent) 25%, transparent 25%),
+    linear-gradient(45deg, color-mix(in srgb, white 8%, transparent) 25%, transparent 25%);
+  background-position: 24px 0, 24px 0, 0 0, 0 0;
+  background-size: 24px 24px;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1.5px solid var(--color-primary);
+  background: white;
+  color: var(--color-red);
+  font-weight: 700;
+  padding: 0.35rem 1.1rem;
+  border-radius: 9999px;
+  font-family: var(--font-heading);
+}
+
+/* --- Glitter / shine effects --- */
+
+.shine-text {
+  background: linear-gradient(
+    100deg,
+    var(--color-primary) 30%,
+    var(--color-gold) 42%,
+    #fff5d6 50%,
+    var(--color-gold) 58%,
+    var(--color-primary) 70%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 5s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+.sparkle-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--color-gold);
+  clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%);
+  opacity: 0;
+  animation: twinkle 3.2s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+  50% { opacity: 0.9; transform: scale(1) rotate(45deg); }
+}
+
+.glow-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.glow-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, var(--color-gold), transparent 30%, transparent 70%, var(--color-gold));
+  background-size: 220% 220%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: shine 4s linear infinite;
+}
+
+.shine-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+}
+
+.shine-btn:hover::after {
+  left: 130%;
 }
