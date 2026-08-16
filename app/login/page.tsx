@@ -43,7 +43,7 @@ export default function LoginPage() {
             required
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="w-full rounded-xl border border-primary/20 bg-white/80 px-4 py-2.5 outline-none ring-primary focus:ring-2"
+            className="w-full rounded-xl border border-primary/20 bg-white px-4 py-2.5 outline-none ring-primary focus:ring-2"
             placeholder="e.g. 9876543210"
             type="tel"
           />

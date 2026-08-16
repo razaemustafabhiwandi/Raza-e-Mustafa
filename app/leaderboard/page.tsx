@@ -47,7 +47,7 @@ export default async function LeaderboardPage() {
       </div>
 
       {topContributors.length === 0 ? (
-        <p className="rounded-2xl bg-white/60 p-6 text-center text-sm text-primary/50">
+        <p className="rounded-2xl bg-white p-6 text-center text-sm text-primary/50">
           Abhi tak koi entry nahi hai. Sabse pehle shamil hon!
         </p>
       ) : (
@@ -55,7 +55,7 @@ export default async function LeaderboardPage() {
           {topContributors.map((c, i) => (
             <li
               key={c.profile_id}
-              className="flex items-center justify-between rounded-xl bg-white/80 px-5 py-3 shadow-sm ring-1 ring-primary/10"
+              className="flex items-center justify-between rounded-xl bg-white px-5 py-3 shadow-sm ring-1 ring-primary/10"
             >
               <div className="flex items-center gap-3">
                 <span className="w-8 text-center text-lg">{MEDAL[i] ?? `#${i + 1}`}</span>

@@ -17,28 +17,14 @@ const LINKS = [
 export default function Navbar() {
   const [hasProfile, setHasProfile] = useState(false);
   const [open, setOpen] = useState(false);
-  const [overall, setOverall] = useState<number | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
     setHasProfile(!!getStoredProfileId());
   }, [pathname]);
 
-  useEffect(() => {
-    fetch("/api/stats/overall")
-      .then((r) => r.json())
-      .then((d) => setOverall(d.overall))
-      .catch(() => {});
-  }, []);
-
   return (
     <header className="sticky top-0 z-40 border-b border-primary/10 bg-cream/90 backdrop-blur">
-      {overall !== null && (
-        <div className="bg-primary py-1.5 text-center text-sm font-medium text-cream">
-          Ab Tak Kul Ibadat:{" "}
-          <span className="text-base font-black text-gold">{overall.toLocaleString()}</span>
-        </div>
-      )}
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
         <Link href="/" className="flex items-center gap-2 text-primary">
           <Image src="/jrm-logo.png" alt="Jamat Raza-e-Mustafa" width={40} height={38} className="h-10 w-auto" priority />

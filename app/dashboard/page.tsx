@@ -96,7 +96,7 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      <div className="mt-10 rounded-2xl bg-white/80 p-6 shadow-sm ring-1 ring-primary/10">
+      <div className="mt-10 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-primary/10">
         <h2 className="mb-4 font-heading text-xl font-semibold text-primary">Naya Count Jama Karein</h2>
         <EntryForm profileId={profile.id} onAdded={() => load(profile.id)} />
       </div>
@@ -104,7 +104,7 @@ export default function DashboardPage() {
       <div className="mt-10">
         <h2 className="mb-4 font-heading text-xl font-semibold text-primary">Apki History</h2>
         {entries.length === 0 ? (
-          <p className="rounded-2xl bg-white/60 p-6 text-center text-sm text-primary/50">
+          <p className="rounded-2xl bg-white p-6 text-center text-sm text-primary/50">
             Abhi tak koi entry nahi hai. Upar se pehla count jama karein.
           </p>
         ) : (

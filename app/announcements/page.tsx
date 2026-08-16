@@ -18,7 +18,7 @@ export default async function AnnouncementsPage() {
       <h1 className="mb-8 font-heading text-3xl font-bold text-primary">Elaan (Announcements)</h1>
 
       {announcements.length === 0 ? (
-        <p className="rounded-2xl bg-white/60 p-6 text-center text-sm text-primary/50">
+        <p className="rounded-2xl bg-white p-6 text-center text-sm text-primary/50">
           Abhi tak koi elaan nahi hai.
         </p>
       ) : (

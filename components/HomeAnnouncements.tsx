@@ -10,7 +10,7 @@ export default function HomeAnnouncements({ announcements }: { announcements: An
 
   if (announcements.length === 0) {
     return (
-      <div className="glow-card rounded-2xl bg-white/70 p-6 text-center text-sm text-primary/50">
+      <div className="glow-card rounded-2xl bg-white p-6 text-center text-sm text-primary/50">
         Abhi tak koi elaan nahi hai.
       </div>
     );
@@ -22,7 +22,7 @@ export default function HomeAnnouncements({ announcements }: { announcements: An
     <>
       <button
         onClick={() => setSelected(latest)}
-        className="glow-card group flex w-full items-center gap-4 rounded-2xl bg-white/90 p-5 text-left shadow-md transition hover:-translate-y-0.5 hover:shadow-lg"
+        className="glow-card group flex w-full items-center gap-4 rounded-2xl bg-white p-5 text-left shadow-md transition hover:-translate-y-0.5 hover:shadow-lg"
       >
         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gold-light text-gold">
           <Megaphone className="h-5 w-5" />
@@ -44,7 +44,7 @@ export default function HomeAnnouncements({ announcements }: { announcements: An
             <button
               key={a.id}
               onClick={() => setSelected(a)}
-              className="rounded-xl bg-white/70 p-4 text-left text-sm shadow-sm ring-1 ring-primary/10 transition hover:bg-white"
+              className="rounded-xl bg-white p-4 text-left text-sm shadow-sm ring-1 ring-primary/10 transition hover:bg-white"
             >
               <span className="block truncate font-medium text-primary">{a.title}</span>
               <span className="mt-1 block truncate text-xs text-primary/50">{a.body}</span>

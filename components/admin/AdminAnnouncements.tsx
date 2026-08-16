@@ -61,7 +61,7 @@ export default function AdminAnnouncements() {
     <div className="flex flex-col gap-8">
       <form
         onSubmit={handleCreate}
-        className="flex flex-col gap-3 rounded-2xl bg-white/80 p-5 shadow-sm ring-1 ring-primary/10"
+        className="flex flex-col gap-3 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-primary/10"
       >
         <h3 className="font-semibold text-primary">Naya Elaan</h3>
         <input
@@ -93,7 +93,7 @@ export default function AdminAnnouncements() {
           <div
             key={a.id}
             className={`rounded-2xl p-5 shadow-sm ring-1 ring-primary/10 ${
-              a.is_active ? "bg-white/80" : "bg-white/40 opacity-60"
+              a.is_active ? "bg-white" : "bg-white/40 opacity-60"
             }`}
           >
             <div className="flex items-start justify-between gap-3">

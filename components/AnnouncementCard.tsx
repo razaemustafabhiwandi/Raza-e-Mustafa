@@ -3,7 +3,7 @@ import { Announcement } from "@/lib/types";
 
 export default function AnnouncementCard({ announcement }: { announcement: Announcement }) {
   return (
-    <div className="rounded-2xl bg-white/80 p-5 shadow-sm ring-1 ring-primary/10">
+    <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-primary/10">
       <div className="flex items-start gap-3">
         <Megaphone className="mt-1 h-5 w-5 shrink-0 text-gold" />
         <div>

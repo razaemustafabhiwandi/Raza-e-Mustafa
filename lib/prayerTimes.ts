@@ -13,14 +13,18 @@ export type PrayerData = {
   gregorian: string;
 };
 
-// Bhiwandi, India — method=1 (Karachi) + school=1 (Hanafi Asr) matches the
-// calculation convention most South Asian Hanafi masjids follow.
-export async function getPrayerTimesAndHijri(): Promise<PrayerData | null> {
+type PrayerTimeParams = { lat: number; lon: number } | { city: string; country: string };
+
+// method=1 (Karachi) + school=1 (Hanafi Asr) matches the calculation convention
+// most South Asian Hanafi masjids follow.
+export async function fetchPrayerTimes(params: PrayerTimeParams): Promise<PrayerData | null> {
   try {
-    const res = await fetch(
-      "https://api.aladhan.com/v1/timingsByCity?city=Bhiwandi&country=India&method=1&school=1",
-      { next: { revalidate: 3600 } }
-    );
+    const url =
+      "lat" in params
+        ? `https://api.aladhan.com/v1/timings/${Math.floor(Date.now() / 1000)}?latitude=${params.lat}&longitude=${params.lon}&method=1&school=1`
+        : `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(params.city)}&country=${encodeURIComponent(params.country)}&method=1&school=1`;
+
+    const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) return null;
 
     const json = await res.json();

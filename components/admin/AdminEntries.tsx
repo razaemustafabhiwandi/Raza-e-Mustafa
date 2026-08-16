@@ -39,7 +39,7 @@ export default function AdminEntries() {
   if (loading) return <p className="text-sm text-primary/50">Load ho raha hai...</p>;
 
   return (
-    <div className="overflow-x-auto rounded-2xl bg-white/80 shadow-sm ring-1 ring-primary/10">
+    <div className="overflow-x-auto rounded-2xl bg-white shadow-sm ring-1 ring-primary/10">
       <table className="w-full text-left text-sm">
         <thead className="bg-primary-light text-primary/70">
           <tr>

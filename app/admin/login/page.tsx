@@ -46,7 +46,7 @@ export default function AdminLoginPage() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-xl border border-primary/20 bg-white/80 px-4 py-2.5 outline-none ring-primary focus:ring-2"
+            className="w-full rounded-xl border border-primary/20 bg-white px-4 py-2.5 outline-none ring-primary focus:ring-2"
           />
         </div>
         <div>
@@ -56,7 +56,7 @@ export default function AdminLoginPage() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-xl border border-primary/20 bg-white/80 px-4 py-2.5 outline-none ring-primary focus:ring-2"
+            className="w-full rounded-xl border border-primary/20 bg-white px-4 py-2.5 outline-none ring-primary focus:ring-2"
           />
         </div>
 

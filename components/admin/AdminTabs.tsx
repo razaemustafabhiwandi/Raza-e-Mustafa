@@ -40,7 +40,7 @@ export default function AdminTabs() {
               className={`whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition ${
                 tab === t.key
                   ? "bg-primary text-cream"
-                  : "bg-white/70 text-primary/60 hover:bg-white"
+                  : "bg-white text-primary/60 hover:bg-white"
               }`}
             >
               {t.label}

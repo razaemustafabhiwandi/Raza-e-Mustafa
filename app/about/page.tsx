@@ -64,7 +64,7 @@ export default function AboutPage() {
 
       <section className="mb-10">
         <SectionLabel>Branch Information</SectionLabel>
-        <div className="glow-card rounded-2xl bg-white/85 p-6 shadow-sm">
+        <div className="glow-card rounded-2xl bg-white p-6 shadow-sm">
           <p className="font-heading text-lg font-bold text-primary">{BRANCH.name}</p>
           <p className="mt-1 text-sm text-primary/70">{BRANCH.address}</p>
         </div>
@@ -72,7 +72,7 @@ export default function AboutPage() {
 
       <section className="mb-10">
         <SectionLabel>Sarparast Details</SectionLabel>
-        <div className="glow-card rounded-2xl bg-white/85 p-6 shadow-sm">
+        <div className="glow-card rounded-2xl bg-white p-6 shadow-sm">
           <TimelineList
             items={SARPARAST.map((s) => ({ title: s.name, contact: s.contact }))}
           />
@@ -81,7 +81,7 @@ export default function AboutPage() {
 
       <section className="mb-10">
         <SectionLabel>Zimmedaar Details</SectionLabel>
-        <div className="glow-card rounded-2xl bg-white/85 p-6 shadow-sm">
+        <div className="glow-card rounded-2xl bg-white p-6 shadow-sm">
           <TimelineList
             items={ZIMMEDAAR.map((z) => ({
               title: z.name,
@@ -121,7 +121,7 @@ export default function AboutPage() {
                 href={s.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glow-card flex items-center gap-3 rounded-xl bg-white/85 p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                className="glow-card flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-cream">
                   <Icon className="h-5 w-5" />

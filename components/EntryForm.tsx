@@ -52,7 +52,7 @@ export default function EntryForm({
               className={`rounded-xl border px-3 py-2 text-sm font-medium transition ${
                 type === t.value
                   ? "border-primary bg-primary text-cream"
-                  : "border-primary/20 bg-white/70 text-primary/70 hover:bg-white"
+                  : "border-primary/20 bg-white text-primary/70 hover:bg-white"
               }`}
             >
               {t.label}
@@ -69,7 +69,7 @@ export default function EntryForm({
           min={1}
           value={count}
           onChange={(e) => setCount(e.target.value)}
-          className="w-full rounded-xl border border-primary/20 bg-white/80 px-4 py-2.5 outline-none ring-primary focus:ring-2"
+          className="w-full rounded-xl border border-primary/20 bg-white px-4 py-2.5 outline-none ring-primary focus:ring-2"
           placeholder="e.g. 100"
         />
       </div>
@@ -81,7 +81,7 @@ export default function EntryForm({
         <input
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          className="w-full rounded-xl border border-primary/20 bg-white/80 px-4 py-2.5 outline-none ring-primary focus:ring-2"
+          className="w-full rounded-xl border border-primary/20 bg-white px-4 py-2.5 outline-none ring-primary focus:ring-2"
           placeholder="e.g. Para 5"
         />
       </div>

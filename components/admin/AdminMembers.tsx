@@ -23,7 +23,7 @@ export default function AdminMembers() {
 
   return (
     <div>
-      <div className="mb-4 flex items-center gap-2 rounded-xl border border-primary/20 bg-white/80 px-3 py-2">
+      <div className="mb-4 flex items-center gap-2 rounded-xl border border-primary/20 bg-white px-3 py-2">
         <Search className="h-4 w-4 text-primary/40" />
         <input
           value={q}
@@ -43,7 +43,7 @@ export default function AdminMembers() {
       {loading ? (
         <p className="text-sm text-primary/50">Load ho raha hai...</p>
       ) : (
-        <div className="overflow-x-auto rounded-2xl bg-white/80 shadow-sm ring-1 ring-primary/10">
+        <div className="overflow-x-auto rounded-2xl bg-white shadow-sm ring-1 ring-primary/10">
           <table className="w-full text-left text-sm">
             <thead className="bg-primary-light text-primary/70">
               <tr>

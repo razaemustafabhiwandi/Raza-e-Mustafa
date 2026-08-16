@@ -77,6 +77,29 @@ export const FAIZLAT_DUROOD_LIST: Quote[] = [
   },
 ];
 
+export type Durood = { name: string; arabic: string };
+
+export const DUROOD_LIST: Durood[] = [
+  {
+    name: "Durood-e-Ibrahim (Namaz Mein Parha Jaane Wala)",
+    arabic:
+      "اَللّٰهُمَّ صَلِّ عَلٰی مُحَمَّدٍ وَّعَلٰی آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلٰی إِبْرَاهِيْمَ وَعَلٰی آلِ إِبْرَاهِيْمَ إِنَّكَ حَمِيْدٌ مَّجِيْدٌ ۝ اَللّٰهُمَّ بَارِكْ عَلٰی مُحَمَّدٍ وَّعَلٰی آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلٰی إِبْرَاهِيْمَ وَعَلٰی آلِ إِبْرَاهِيْمَ إِنَّكَ حَمِيْدٌ مَّجِيْدٌ",
+  },
+  {
+    name: "Durood-e-Paak (Mukhtasar)",
+    arabic: "اَللّٰهُمَّ صَلِّ عَلٰی مُحَمَّدٍ وَّ عَلٰی اٰلِ مُحَمَّدٍ",
+  },
+  {
+    name: "Durood-e-Tunjina",
+    arabic:
+      "اَللّٰهُمَّ صَلِّ عَلٰی سَیِّدِنٰا مُحَمَّدٍ صَلَاۃً تُنَجِّیْنَا بِهَا مِنْ جَمِیْعِ الْاَهْوَالِ وَالْآفَاتِ وَتَقْضِیْ لَنَا بِهَا جَمِیْعَ الْحَاجَاتِ وَتُطَهِّرُنَا بِهَا مِنْ جَمِیْعِ السَّیِّئَاتِ وَتَرْفَعُنَا بِهَا عِنْدَكَ اَعْلَی الدَّرَجَاتِ وَتُبَلِّغُنَا بِهَا اَقْصَی الْغَایَاتِ مِنْ جَمِیْعِ الْخَیْرَاتِ فِی الْحَیَاةِ وَبَعْدَ الْمَمَاتِ",
+  },
+];
+
+export function getDailyDurood(): Durood {
+  return DUROOD_LIST[dailyIndex(DUROOD_LIST.length, 10)];
+}
+
 function dailyIndex(length: number, offset = 0): number {
   const now = new Date();
   const startOfYear = new Date(now.getFullYear(), 0, 0);
