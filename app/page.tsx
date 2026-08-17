@@ -85,11 +85,11 @@ export default async function Home() {
           karein.
         </p>
 
-        <div className="glow-card mt-2 w-full max-w-2xl rounded-2xl border-t-4 border-gold bg-white px-8 py-7 shadow-md">
+        <div className="glow-card mt-2 w-full max-w-2xl rounded-2xl border-t-4 border-gold bg-white px-5 py-6 shadow-md sm:px-8 sm:py-7">
           <p className="text-xs font-semibold uppercase tracking-widest text-gold">
             Aaj Ka Durood Sharif
           </p>
-          <p dir="rtl" className="bismillah mt-4 text-2xl leading-loose text-primary sm:text-3xl">
+          <p dir="rtl" className="bismillah mt-4 text-lg leading-relaxed text-primary sm:text-2xl sm:leading-loose md:text-3xl">
             {durood.arabic}
           </p>
           <p className="mt-4 text-sm font-semibold text-primary/60">{durood.name}</p>

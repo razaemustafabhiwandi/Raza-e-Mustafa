@@ -55,13 +55,21 @@ export default async function LeaderboardPage() {
           {topContributors.map((c, i) => (
             <li
               key={c.profile_id}
-              className="flex items-center justify-between rounded-xl bg-white px-5 py-3 shadow-sm ring-1 ring-primary/10"
+              className="flex items-center justify-between gap-3 rounded-xl bg-white px-4 py-3 shadow-sm ring-1 ring-primary/10 sm:px-5"
             >
-              <div className="flex items-center gap-3">
-                <span className="w-8 text-center text-lg">{MEDAL[i] ?? `#${i + 1}`}</span>
-                <span className="font-semibold text-red">{c.name}</span>
+              <div className="flex min-w-0 items-center gap-3">
+                {i < MEDAL.length ? (
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center text-2xl">
+                    {MEDAL[i]}
+                  </span>
+                ) : (
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-light text-sm font-bold text-primary">
+                    {i + 1}
+                  </span>
+                )}
+                <span className="truncate font-semibold text-red">{c.name}</span>
               </div>
-              <span className="rounded-lg bg-gold px-2 py-0.5 font-bold text-primary-dark">
+              <span className="shrink-0 rounded-lg bg-gold px-2 py-0.5 font-bold text-primary-dark">
                 {c.total.toLocaleString()}
               </span>
             </li>

@@ -1,10 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { normalizePhone } from "@/lib/phone";
 
 export async function GET(req: NextRequest) {
-  const phone = req.nextUrl.searchParams.get("phone")?.trim();
-  if (!phone) {
+  const rawPhone = req.nextUrl.searchParams.get("phone")?.trim();
+  if (!rawPhone) {
     return NextResponse.json({ error: "Phone number chahiye." }, { status: 400 });
+  }
+
+  const phone = normalizePhone(rawPhone);
+  if (!phone) {
+    return NextResponse.json(
+      { error: "Sahi 10-digit mobile number darj karein (e.g. 9876543210)." },
+      { status: 400 }
+    );
   }
 
   const { data, error } = await supabaseAdmin

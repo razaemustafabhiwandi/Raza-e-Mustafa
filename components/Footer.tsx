@@ -10,7 +10,7 @@ export default function Footer() {
           اَللّٰهُمَّ صَلِّ عَلٰی مُحَمَّدٍ وَّ عَلٰی اٰلِ مُحَمَّدٍ
         </p>
         <p className="font-heading font-semibold text-cream">Raza-e-Mustafa Bhiwandi</p>
-        <p>&copy; {new Date().getFullYear()} Jamat Raza-e-Mustafa &mdash; Markaz-e-Ahle Sunnat, Bareilly Shareef</p>
+        <p>&copy; {new Date().getFullYear()} Jamat Raza-e-Mustafa Bhiwandi</p>
         <Link href="/admin/login" className="text-xs text-cream/50 hover:text-gold">
           Admin
         </Link>

@@ -53,11 +53,11 @@ export default function RabiKpiBanner({
             {topContributors.map((c, i) => (
               <div
                 key={c.name + i}
-                className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm"
+                className="flex max-w-[220px] items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm"
               >
-                <span>{MEDAL[i]}</span>
-                <span className="font-medium text-cream">{c.name}</span>
-                <span className="font-bold text-gold">{c.total.toLocaleString()}</span>
+                <span className="shrink-0">{MEDAL[i]}</span>
+                <span className="truncate font-medium text-cream">{c.name}</span>
+                <span className="shrink-0 font-bold text-gold">{c.total.toLocaleString()}</span>
               </div>
             ))}
           </div>

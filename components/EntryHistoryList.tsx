@@ -68,8 +68,8 @@ export default function EntryHistoryList({
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-primary/10">
-      <table className="w-full text-left text-sm">
+    <div className="overflow-x-auto rounded-2xl bg-white shadow-sm ring-1 ring-primary/10">
+      <table className="w-full min-w-[560px] text-left text-sm">
         <thead className="bg-primary-light text-primary/70">
           <tr>
             <th className="px-4 py-3 font-medium">Type</th>
