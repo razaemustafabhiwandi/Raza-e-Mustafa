@@ -8,6 +8,7 @@ import { Entry, EntryType, Profile, ENTRY_TYPES } from "@/lib/types";
 import EntryForm from "@/components/EntryForm";
 import StatCard from "@/components/StatCard";
 import EntryHistoryList from "@/components/EntryHistoryList";
+import SetPinPrompt from "@/components/SetPinPrompt";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -16,6 +17,7 @@ export default function DashboardPage() {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [hasPinSet, setHasPinSet] = useState(true);
 
   const load = useCallback(async (profileId: string) => {
     const [profileRes, entriesRes] = await Promise.all([
@@ -34,6 +36,7 @@ export default function DashboardPage() {
 
     setProfile(profileData.profile);
     setTotals(profileData.totals);
+    setHasPinSet(Boolean(profileData.hasPinSet));
     setEntries(entriesData.entries ?? []);
     setLoading(false);
   }, []);
@@ -88,6 +91,12 @@ export default function DashboardPage() {
           <LogOut className="h-4 w-4" /> Logout
         </button>
       </div>
+
+      {!hasPinSet && (
+        <div className="mt-6">
+          <SetPinPrompt profileId={profile.id} onDone={() => load(profile.id)} />
+        </div>
+      )}
 
       <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-5">
         <StatCard label="Kul (Overall)" value={overall} />

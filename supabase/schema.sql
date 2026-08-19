@@ -3,12 +3,15 @@
 
 create extension if not exists "pgcrypto";
 
--- Community members. No password: a browser holds its own profile id (see lib/profile-session.ts).
+-- Community members. Login is phone + a 4-6 digit Security PIN (bcrypt hashed
+-- in pin_hash, never stored in plain text). A browser also holds its own
+-- profile id after a successful login (see lib/profile-session.ts).
 create table if not exists public.profiles (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   phone text not null unique,
   address text,
+  pin_hash text,
   created_at timestamptz not null default now()
 );
 

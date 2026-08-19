@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { KeyRound } from "lucide-react";
 import { setStoredProfileId } from "@/lib/profile-session";
 
 export default function JoinPage() {
@@ -10,18 +11,29 @@ export default function JoinPage() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [pin, setPin] = useState("");
+  const [confirmPin, setConfirmPin] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    setLoading(true);
 
+    if (!/^\d{4,6}$/.test(pin)) {
+      setError("PIN 4 se 6 digits ka hona chahiye (sirf numbers).");
+      return;
+    }
+    if (pin !== confirmPin) {
+      setError("Dono PIN match nahi ho rahe.");
+      return;
+    }
+
+    setLoading(true);
     const res = await fetch("/api/profiles", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, phone, address }),
+      body: JSON.stringify({ name, phone, address, pin }),
     });
     const data = await res.json();
     setLoading(false);
@@ -39,7 +51,8 @@ export default function JoinPage() {
     <div className="mx-auto max-w-md px-4 py-14">
       <h1 className="font-heading text-3xl font-bold text-primary">Jamat Mein Shamil Hon</h1>
       <p className="mt-2 text-sm text-primary/60">
-        Apna naam, phone number aur address darj karein &mdash; koi password ki zaroorat nahi.
+        Apna naam, phone number aur address darj karein, aur apna account secure karne ke liye ek
+        Security PIN set karein.
       </p>
 
       <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
@@ -75,6 +88,41 @@ export default function JoinPage() {
             placeholder="Mohalla, shehar"
             rows={2}
           />
+        </div>
+
+        <div className="rounded-xl border border-gold/30 bg-gold-light/40 p-4">
+          <p className="mb-3 flex items-center gap-1.5 text-sm font-semibold text-primary">
+            <KeyRound className="h-4 w-4 text-gold" /> Security PIN
+          </p>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="mb-1 block text-xs font-medium text-primary/70">PIN (4-6 digits)</label>
+              <input
+                required
+                value={pin}
+                onChange={(e) => setPin(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                className="w-full rounded-xl border border-primary/20 bg-white px-4 py-2.5 tracking-widest outline-none ring-primary focus:ring-2"
+                placeholder="••••"
+                type="password"
+                inputMode="numeric"
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-xs font-medium text-primary/70">PIN Confirm Karein</label>
+              <input
+                required
+                value={confirmPin}
+                onChange={(e) => setConfirmPin(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                className="w-full rounded-xl border border-primary/20 bg-white px-4 py-2.5 tracking-widest outline-none ring-primary focus:ring-2"
+                placeholder="••••"
+                type="password"
+                inputMode="numeric"
+              />
+            </div>
+          </div>
+          <p className="mt-2 text-xs text-primary/50">
+            Yeh PIN aapko dobara login karte waqt chahiye hoga &mdash; kisi ko na batayein.
+          </p>
         </div>
 
         {error && <p className="text-sm text-red-600">{error}</p>}

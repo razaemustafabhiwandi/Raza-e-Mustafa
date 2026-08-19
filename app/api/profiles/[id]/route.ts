@@ -10,7 +10,7 @@ export async function GET(
 
   const { data: profile, error: profileError } = await supabaseAdmin
     .from("profiles")
-    .select()
+    .select("id, name, phone, address, created_at, pin_hash")
     .eq("id", id)
     .maybeSingle();
 
@@ -40,5 +40,11 @@ export async function GET(
     totals[e.type as EntryType] += e.count;
   }
 
-  return NextResponse.json({ profile, totals });
+  const { pin_hash, ...safeProfile } = profile;
+
+  return NextResponse.json({
+    profile: safeProfile,
+    totals,
+    hasPinSet: Boolean(pin_hash),
+  });
 }

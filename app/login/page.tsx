@@ -8,6 +8,7 @@ import { setStoredProfileId } from "@/lib/profile-session";
 export default function LoginPage() {
   const router = useRouter();
   const [phone, setPhone] = useState("");
+  const [pin, setPin] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -16,7 +17,11 @@ export default function LoginPage() {
     setError(null);
     setLoading(true);
 
-    const res = await fetch(`/api/profiles/lookup?phone=${encodeURIComponent(phone)}`);
+    const res = await fetch("/api/profiles/lookup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ phone, pin }),
+    });
     const data = await res.json();
     setLoading(false);
 
@@ -33,7 +38,7 @@ export default function LoginPage() {
     <div className="mx-auto max-w-md px-4 py-14">
       <h1 className="font-heading text-3xl font-bold text-primary">Wapas Aayein</h1>
       <p className="mt-2 text-sm text-primary/60">
-        Apna registered phone number darj karein, apka account khud khul jayega.
+        Apna registered phone number aur Security PIN darj karein.
       </p>
 
       <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
@@ -46,6 +51,18 @@ export default function LoginPage() {
             className="w-full rounded-xl border border-primary/20 bg-white px-4 py-2.5 outline-none ring-primary focus:ring-2"
             placeholder="e.g. 9876543210"
             type="tel"
+          />
+        </div>
+        <div>
+          <label className="mb-1 block text-sm font-medium text-primary/80">Security PIN</label>
+          <input
+            required
+            value={pin}
+            onChange={(e) => setPin(e.target.value.replace(/\D/g, "").slice(0, 6))}
+            className="w-full rounded-xl border border-primary/20 bg-white px-4 py-2.5 tracking-widest outline-none ring-primary focus:ring-2"
+            placeholder="••••"
+            type="password"
+            inputMode="numeric"
           />
         </div>
 
