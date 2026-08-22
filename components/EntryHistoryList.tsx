@@ -37,34 +37,42 @@ export default function EntryHistoryList({
   async function saveEdit(id: string) {
     setError(null);
     setBusy(true);
-    const res = await fetch(`/api/entries/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        profile_id: profileId,
-        type: editType,
-        count: Number(editCount),
-        note: editNote,
-      }),
-    });
-    const data = await res.json();
-    setBusy(false);
+    try {
+      const res = await fetch(`/api/entries/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          profile_id: profileId,
+          type: editType,
+          count: Number(editCount),
+          note: editNote,
+        }),
+      });
+      const data = await res.json();
 
-    if (!res.ok) {
-      setError(data.error ?? "Kuch ghalat ho gaya.");
-      return;
+      if (!res.ok) {
+        setError(data.error ?? "Kuch ghalat ho gaya.");
+        return;
+      }
+
+      setEditingId(null);
+      onChanged();
+    } catch {
+      setError("Internet connection check karein aur dobara koshish karein.");
+    } finally {
+      setBusy(false);
     }
-
-    setEditingId(null);
-    onChanged();
   }
 
   async function remove(id: string) {
     setBusy(true);
-    await fetch(`/api/entries/${id}?profile_id=${profileId}`, { method: "DELETE" });
-    setBusy(false);
-    setConfirmingId(null);
-    onChanged();
+    try {
+      await fetch(`/api/entries/${id}?profile_id=${profileId}`, { method: "DELETE" });
+      setConfirmingId(null);
+      onChanged();
+    } finally {
+      setBusy(false);
+    }
   }
 
   return (

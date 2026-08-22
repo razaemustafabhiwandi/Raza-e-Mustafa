@@ -21,22 +21,27 @@ export default function EntryForm({
     setError(null);
     setLoading(true);
 
-    const res = await fetch("/api/entries", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ profile_id: profileId, type, count: Number(count), note }),
-    });
-    const data = await res.json();
-    setLoading(false);
+    try {
+      const res = await fetch("/api/entries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ profile_id: profileId, type, count: Number(count), note }),
+      });
+      const data = await res.json();
 
-    if (!res.ok) {
-      setError(data.error ?? "Kuch ghalat ho gaya.");
-      return;
+      if (!res.ok) {
+        setError(data.error ?? "Kuch ghalat ho gaya.");
+        return;
+      }
+
+      setCount("");
+      setNote("");
+      onAdded();
+    } catch {
+      setError("Internet connection check karein aur dobara koshish karein.");
+    } finally {
+      setLoading(false);
     }
-
-    setCount("");
-    setNote("");
-    onAdded();
   }
 
   return (

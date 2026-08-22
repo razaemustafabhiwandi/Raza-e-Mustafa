@@ -17,28 +17,35 @@ export default function DashboardPage() {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [loadError, setLoadError] = useState(false);
   const [hasPinSet, setHasPinSet] = useState(true);
 
   const load = useCallback(async (profileId: string) => {
-    const [profileRes, entriesRes] = await Promise.all([
-      fetch(`/api/profiles/${profileId}`),
-      fetch(`/api/entries?profile_id=${profileId}`),
-    ]);
+    setLoading(true);
+    setLoadError(false);
+    try {
+      const [profileRes, entriesRes] = await Promise.all([
+        fetch(`/api/profiles/${profileId}`),
+        fetch(`/api/entries?profile_id=${profileId}`),
+      ]);
 
-    if (!profileRes.ok) {
-      setNotFound(true);
+      if (!profileRes.ok) {
+        setNotFound(true);
+        return;
+      }
+
+      const profileData = await profileRes.json();
+      const entriesData = entriesRes.ok ? await entriesRes.json() : { entries: [] };
+
+      setProfile(profileData.profile);
+      setTotals(profileData.totals);
+      setHasPinSet(Boolean(profileData.hasPinSet));
+      setEntries(entriesData.entries ?? []);
+    } catch {
+      setLoadError(true);
+    } finally {
       setLoading(false);
-      return;
     }
-
-    const profileData = await profileRes.json();
-    const entriesData = await entriesRes.json();
-
-    setProfile(profileData.profile);
-    setTotals(profileData.totals);
-    setHasPinSet(Boolean(profileData.hasPinSet));
-    setEntries(entriesData.entries ?? []);
-    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -57,6 +64,23 @@ export default function DashboardPage() {
 
   if (loading) {
     return <div className="mx-auto max-w-3xl px-4 py-14 text-center text-primary/50">Load ho raha hai...</div>;
+  }
+
+  if (loadError) {
+    return (
+      <div className="mx-auto max-w-md px-4 py-14 text-center">
+        <p className="text-primary/70">
+          Kuch ghalat ho gaya, data load nahi ho saka. Apna internet check karein aur dobara
+          koshish karein.
+        </p>
+        <button
+          onClick={() => load(getStoredProfileId()!)}
+          className="mt-4 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-cream"
+        >
+          Dobara Koshish Karein
+        </button>
+      </div>
+    );
   }
 
   if (notFound || !profile || !totals) {

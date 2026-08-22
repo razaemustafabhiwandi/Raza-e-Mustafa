@@ -13,9 +13,8 @@ import Image from "next/image";
 export const revalidate = 0;
 
 async function getHomeData() {
-  const [{ data: entries }, { data: profiles }, { data: announcements }] = await Promise.all([
-    supabaseAdmin.from("entries").select("profile_id, type, count"),
-    supabaseAdmin.from("profiles").select("id, name"),
+  const [{ data: entries }, { data: announcements }] = await Promise.all([
+    supabaseAdmin.from("entries").select("type, count"),
     supabaseAdmin
       .from("announcements")
       .select("id, title, body, is_active, created_at")
@@ -24,32 +23,21 @@ async function getHomeData() {
       .limit(3),
   ]);
 
-  const nameById = new Map((profiles ?? []).map((p) => [p.id, p.name]));
   const totals: Record<EntryType, number> = { durood: 0, kalimah: 0, para: 0, surah: 0 };
-  const perProfile = new Map<string, { name: string; total: number }>();
-
   for (const e of entries ?? []) {
     totals[e.type as EntryType] += e.count;
-    const existing = perProfile.get(e.profile_id);
-    if (existing) existing.total += e.count;
-    else perProfile.set(e.profile_id, { name: nameById.get(e.profile_id) ?? "Member", total: e.count });
   }
   const overall = Object.values(totals).reduce((a, b) => a + b, 0);
-
-  const topContributors = Array.from(perProfile.values())
-    .sort((a, b) => b.total - a.total)
-    .slice(0, 3);
 
   return {
     totals,
     overall,
-    topContributors,
     announcements: (announcements ?? []) as Announcement[],
   };
 }
 
 export default async function Home() {
-  const { totals, overall, topContributors, announcements } = await getHomeData();
+  const { totals, overall, announcements } = await getHomeData();
   const durood = getDailyDurood();
 
   return (
@@ -100,7 +88,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <RabiKpiBanner overall={overall} totals={totals} topContributors={topContributors} />
+      <RabiKpiBanner overall={overall} totals={totals} />
 
       <IslamicDivider />
 

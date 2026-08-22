@@ -29,20 +29,25 @@ export default function SetPinPrompt({
     }
 
     setLoading(true);
-    const res = await fetch(`/api/profiles/${profileId}/pin`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ newPin: pin }),
-    });
-    const data = await res.json();
-    setLoading(false);
+    try {
+      const res = await fetch(`/api/profiles/${profileId}/pin`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ newPin: pin }),
+      });
+      const data = await res.json();
 
-    if (!res.ok) {
-      setError(data.error ?? "Kuch ghalat ho gaya.");
-      return;
+      if (!res.ok) {
+        setError(data.error ?? "Kuch ghalat ho gaya.");
+        return;
+      }
+
+      onDone();
+    } catch {
+      setError("Internet connection check karein aur dobara koshish karein.");
+    } finally {
+      setLoading(false);
     }
-
-    onDone();
   }
 
   return (

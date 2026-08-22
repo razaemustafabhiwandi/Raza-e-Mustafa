@@ -30,21 +30,26 @@ export default function JoinPage() {
     }
 
     setLoading(true);
-    const res = await fetch("/api/profiles", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, phone, address, pin }),
-    });
-    const data = await res.json();
-    setLoading(false);
+    try {
+      const res = await fetch("/api/profiles", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, address, pin }),
+      });
+      const data = await res.json();
 
-    if (!res.ok) {
-      setError(data.error ?? "Kuch ghalat ho gaya.");
-      return;
+      if (!res.ok) {
+        setError(data.error ?? "Kuch ghalat ho gaya.");
+        return;
+      }
+
+      setStoredProfileId(data.profile.id);
+      router.push("/dashboard");
+    } catch {
+      setError("Internet connection check karein aur dobara koshish karein.");
+    } finally {
+      setLoading(false);
     }
-
-    setStoredProfileId(data.profile.id);
-    router.push("/dashboard");
   }
 
   return (
