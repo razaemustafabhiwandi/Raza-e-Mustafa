@@ -8,12 +8,14 @@ import AdminStats from "@/components/admin/AdminStats";
 import AdminAnnouncements from "@/components/admin/AdminAnnouncements";
 import AdminMembers from "@/components/admin/AdminMembers";
 import AdminEntries from "@/components/admin/AdminEntries";
+import AdminLeaderboard from "@/components/admin/AdminLeaderboard";
 
 const TABS = [
   { key: "stats", label: "Overview" },
   { key: "announcements", label: "Announcements" },
   { key: "members", label: "Members" },
   { key: "entries", label: "Entries" },
+  { key: "leaderboard", label: "Leaderboard" },
 ] as const;
 
 type TabKey = (typeof TABS)[number]["key"];
@@ -59,6 +61,7 @@ export default function AdminTabs() {
       {tab === "announcements" && <AdminAnnouncements />}
       {tab === "members" && <AdminMembers />}
       {tab === "entries" && <AdminEntries />}
+      {tab === "leaderboard" && <AdminLeaderboard />}
     </div>
   );
 }
